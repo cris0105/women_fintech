@@ -1,3 +1,7 @@
+<?php
+session_start(); 
+?>
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -5,12 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Women in FinTech</title>
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <a class="navbar-brand" href="index.php">Women in FinTech</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -22,38 +25,39 @@
                     <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="membersMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Membrii
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="membersMenu">
-                        <a class="dropdown-item" href="add_member.php">Adaugare Membru Nou</a>
-                        <a class="dropdown-item" href="members.php">Afisare Lista Membrii</a>
-                        <a class="dropdown-item" href="search_member.php">Cautare Membrii</a>
-                    </div>
+                <a class="nav-link dropdown-toggle" href="#" id="membersDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Membrii
+                </a>
+                <div class="dropdown-menu" aria-labelledby="membersDropdown">
+                    <a class="dropdown-item" href="add_member.php">Adaugă Membru Nou</a>
+                    <a class="dropdown-item" href="members.php">Afișează Lista Membrii</a>
+                    <a class="dropdown-item" href="search_member.php">Caută Membrii</a>
+                </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="resourceHubMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="resourceHub" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Resource Hub
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="resourceHubMenu">
+                    <div class="dropdown-menu" aria-labelledby="resourceHub">
                         <a class="dropdown-item" href="articles_resources.php">Articole și materiale</a>
-                        <a class="dropdown-item" href="video_resources.php">Materiale video</a>
                         <a class="dropdown-item" href="podcast_resources.php">Podcast-uri</a>
                         <a class="dropdown-item" href="downloadable_resources.php">Resurse downloadable</a>
                     </div>
                 </li>
             </ul>
-            <!-- Buton Dark Mode -->
-            <button class="btn btn-secondary mr-2" id="darkModeToggle">Dark Mode</button>
-
-            <!-- Login/Register -->
-            <button class="btn btn-outline-light mr-2" data-toggle="modal" data-target="#loginModal">Login</button>
-            <button class="btn btn-outline-light" data-toggle="modal" data-target="#registerModal">Register</button>
+            <div class="ml-auto d-flex align-items-center">
+                <button class="btn btn-secondary mr-2" id="darkModeToggle">Dark Mode</button>
+                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+                    <a href="logout.php" class="btn btn-light">Logout</a>
+                <?php else: ?>
+                    <a href="login.php" class="btn btn-outline-light">Login</a>
+                    <a href="register.php" class="btn btn-outline-light">Register</a>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </nav>
 
-<!-- Modal pentru Login -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -80,7 +84,6 @@
     </div>
 </div>
 
-<!-- Modal pentru Register -->
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
